@@ -232,7 +232,7 @@
   ],
   "route": {
     "rules": [
-      { "protocol": "dns", "outbound": "dns-out" },
+      { "protocol": "dns", "action": "hijack-dns" },
       { "clash_mode": "Direct", "outbound": "DIRECT" },
       { "clash_mode": "Global", "outbound": "🚀 节点选择" },
       { "rule_set": "geosite-category-ads-all", "outbound": "🛑 广告拦截" },

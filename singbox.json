@@ -87,7 +87,7 @@
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "tun0",
-      "inet4_address": "172.19.0.1/30",
+      "address": ["172.19.0.1/30"],
       "auto_route": true,
       "strict_route": true,
       "stack": "system",
@@ -228,18 +228,6 @@
       "tag": "🐟 漏网之鱼",
       "outbounds": ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"],
       "default": "🚀 节点选择"
-    },
-    {
-      "type": "direct",
-      "tag": "DIRECT"
-    },
-    {
-      "type": "block",
-      "tag": "REJECT"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
     }
   ],
   "route": {

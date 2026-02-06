@@ -408,9 +408,6 @@
         "type": "inline",
         "rules": [
           {
-            "rule_set": ["geosite-cn"]
-          },
-          {
             "domain_suffix": [
               "lan", "local", "home.arpa", "mzstatic.com", "ntp.org.cn",
               "openwrt.pool.ntp.org", "time.edu.cn", "music.163.com", "126.net",

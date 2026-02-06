@@ -268,6 +268,8 @@
       { "ip_is_private": true, "outbound": "🏠 私有网络" },
       { "domain_suffix": ["iyf.tv"], "outbound": "🎬 全球视频" },
       { "domain_suffix": ["spaceship.com", "spaceship-cdn.com"], "outbound": "🛠 自定直连" },
+      { "rule_set": "fakeip-filter", "outbound": "DIRECT" },
+      { "rule_set": ["geosite-apple-cn", "geosite-microsoft-cn", "geosite-steam-cn"], "outbound": "🇨🇳 国内直连" },
       { "rule_set": "geosite-cloudflare", "outbound": "☁️ Cloudflare" },
       { "rule_set": "geosite-github", "outbound": "🐙 GitHub" },
       { "rule_set": "geosite-telegram", "outbound": "📲 电报消息" },
@@ -275,11 +277,9 @@
       { "rule_set": "geosite-binance", "outbound": "₿ 加密货币" },
       { "rule_set": ["geosite-openai", "geosite-anthropic"], "outbound": "🤖 AI 服务" },
       { "rule_set": "geosite-youtube", "outbound": "🎬 全球视频" },
-      { "rule_set": ["geosite-apple-cn", "geosite-microsoft-cn", "geosite-steam-cn"], "outbound": "🇨🇳 国内直连" },
       { "rule_set": "geosite-google", "outbound": "🔍 谷歌服务" },
       { "rule_set": "geosite-microsoft", "outbound": "Ⓜ️ 微软服务" },
       { "rule_set": "geosite-apple", "outbound": "🍏 苹果服务" },
-      { "rule_set": "fakeip-filter", "outbound": "DIRECT" },
       { "rule_set": ["geosite-cn", "geoip-cn"], "outbound": "🇨🇳 国内直连" }
     ],
     "rule_set": [

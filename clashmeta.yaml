@@ -62,12 +62,12 @@ dns:
     - "+.music.migu.cn"
     - "+.msftconnecttest.com"
     - "+.msftncsi.com"
-    - localhost.ptlogin2.qq.com
+    - "+.ipv6.microsoft.com"
     - "*.*.*.srv.nintendo.net"
     - "*.*.stun.playstation.net"
-    - "xbox.*.*.microsoft.com"
-    - "+.ipv6.microsoft.com"
     - "*.*.xboxlive.com"
+    - "xbox.*.*.microsoft.com"
+    - localhost.ptlogin2.qq.com
     - geosite:cn
   nameserver-policy:
     geosite:cn:
@@ -78,15 +78,17 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   nameserver:
-    - 8.8.8.8
     - 1.1.1.1
+    - 8.8.8.8
     - tls://dns.google#853
   proxy-server-nameserver:
     - 8.8.8.8
     - 1.1.1.1
+    - tls://1.1.1.1
   fallback:
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
     - https://dns.google/dns-query
-    - https://cloudflare-dns.com/dns-query
   fallback-filter:
     geoip: true
     ipcidr:
@@ -99,10 +101,12 @@ dns:
       - "+.twitter.com"
       - "+.youtube.com"
       - "+.xn--ngstr-lra8j.com"
-      - "+.google.cn"
-      - "+.googleapis.cn"
-      - "+.googleapis.com"
       - "+.gvt1.com"
+      - "+.ggpht.com"
+      - "+.ytimg.com"
+      - "+.gstatic.com"
+      - "+.googleapis.com"
+      - "+.fonts.googleapis.com"
 
 sniffer:
   enable: true
@@ -197,14 +201,6 @@ proxy-groups:
     type: select
     proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
 
-rule-providers:
-  direct:
-    type: http
-    behavior: domain
-    url: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
-    path: ./ruleset/direct.yaml
-    interval: 86400
-
 rules:
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,private,🏠 私有网络
@@ -212,6 +208,9 @@ rules:
   - DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
   - DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
   - DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连
+  - GEOSITE,apple-cn,🇨🇳 国内直连
+  - GEOSITE,microsoft-cn,🇨🇳 国内直连
+  - GEOSITE,steam@cn,🇨🇳 国内直连
   - GEOSITE,cloudflare,☁️ Cloudflare
   - GEOSITE,github,🐙 GitHub
   - GEOSITE,telegram,📲 电报消息
@@ -222,10 +221,10 @@ rules:
   - GEOSITE,openai,🤖 AI 服务
   - GEOSITE,anthropic,🤖 AI 服务
   - GEOSITE,youtube,🎬 全球视频
-  - RULE-SET,direct,🇨🇳 国内直连
   - GEOSITE,google,🔍 谷歌服务
   - GEOIP,google,🔍 谷歌服务,no-resolve
   - GEOSITE,microsoft,Ⓜ️ 微软服务
   - GEOSITE,apple,🍏 苹果服务
+  - GEOSITE,cn,🇨🇳 国内直连
   - GEOIP,cn,🇨🇳 国内直连,no-resolve
   - MATCH,🐟 漏网之鱼

@@ -57,9 +57,6 @@
       {
         "query_type": ["A", "AAAA"],
         "server": "dns_fakeip"
-      },
-      {
-        "server": "dns_proxy"
       }
     ],
     "fakeip": {
@@ -67,7 +64,7 @@
       "inet4_range": "198.18.0.0/16",
       "inet6_range": "fc00::/18"
     },
-    "final": "dns_proxy_google",
+    "final": "dns_proxy",
     "strategy": "ipv4_only"
   },
   "inbounds": [

@@ -1,0 +1,231 @@
+---
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7895
+allow-lan: true
+ipv6: false
+bind-address: "*"
+mode: rule
+log-level: warning
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+find-process-mode: 'off'
+geodata-mode: true
+geo-auto-update: true
+geodata-loader: memconservative
+geo-update-interval: 24
+geox-url:
+  geoip: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
+  geosite: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
+  mmdb: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
+  asn: https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb
+keep-alive-idle: 600
+keep-alive-interval: 15
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  ipv6: false
+  respect-rules: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "+.home.arpa"
+    - "+.mzstatic.com"
+    - "stun.*.*.*"
+    - "stun.*.*"
+    - "+.ntp.org.cn"
+    - "+.openwrt.pool.ntp.org"
+    - "+.time.edu.cn"
+    - "ntp[1-7].aliyun.com"
+    - "time[1-7].aliyun.com"
+    - "time[1-7].apple.com"
+    - "time[1-7].google.com"
+    - pool.ntp.org
+    - ntp.ubuntu.com
+    - music.163.com
+    - "+.music.163.com"
+    - "+.126.net"
+    - "+.y.qq.com"
+    - "+.kuwo.cn"
+    - "+.xiami.com"
+    - "+.music.migu.cn"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - localhost.ptlogin2.qq.com
+    - "*.*.*.srv.nintendo.net"
+    - "*.*.stun.playstation.net"
+    - "xbox.*.*.microsoft.com"
+    - "+.ipv6.microsoft.com"
+    - "*.*.xboxlive.com"
+    - geosite:cn
+  nameserver-policy:
+    geosite:cn:
+      - 223.5.5.5
+      - 119.29.29.29
+      - 114.114.114.114
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+    - tls://dns.google#853
+  proxy-server-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 127.0.0.1/32
+    domain:
+      - "+.google.com"
+      - "+.facebook.com"
+      - "+.twitter.com"
+      - "+.youtube.com"
+      - "+.xn--ngstr-lra8j.com"
+      - "+.google.cn"
+      - "+.googleapis.cn"
+      - "+.googleapis.com"
+      - "+.gvt1.com"
+
+sniffer:
+  enable: true
+  override-destination: true
+  sniff:
+    QUIC:
+      ports:
+        - 443
+    TLS:
+      ports:
+        - 443
+        - 8443
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+
+proxies:
+  - name: "示例节点"
+    type: vless
+    server: 0.0.0.0
+    port: 443
+    uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    tls: true
+    servername: example.com
+    client-fingerprint: chrome
+    network: ws
+    ws-opts:
+      path: "/?ed=2560"
+      headers:
+        Host: example.com
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies: ["1️⃣ 默认节点", "2️⃣ 第二节点", "⚡ 自动选择", DIRECT]
+  - name: "⚡ 自动选择"
+    type: url-test
+    proxies: ["示例节点"]
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    lazy: false
+  - name: "1️⃣ 默认节点"
+    type: select
+    proxies: ["示例节点"]
+  - name: "2️⃣ 第二节点"
+    type: select
+    proxies: ["示例节点"]
+  - name: "🛑 广告拦截"
+    type: select
+    proxies: [REJECT]
+  - name: "🤖 AI 服务"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🎬 全球视频"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🔍 谷歌服务"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "Ⓜ️ 微软服务"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🍏 苹果服务"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "☁️ Cloudflare"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🐙 GitHub"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "📲 电报消息"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🐦 推特/X"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "₿ 加密货币"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+  - name: "🏠 私有网络"
+    type: select
+    proxies: [DIRECT]
+  - name: "🇨🇳 国内直连"
+    type: select
+    proxies: [DIRECT]
+  - name: "🛠 自定直连"
+    type: select
+    proxies: [DIRECT, "🚀 节点选择"]
+  - name: "🐟 漏网之鱼"
+    type: select
+    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+
+rule-providers:
+  direct:
+    type: http
+    behavior: domain
+    url: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+
+rules:
+  - GEOSITE,category-ads-all,🛑 广告拦截
+  - GEOSITE,private,🏠 私有网络
+  - GEOIP,private,🏠 私有网络,no-resolve
+  - DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
+  - DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
+  - DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连
+  - GEOSITE,cloudflare,☁️ Cloudflare
+  - GEOSITE,github,🐙 GitHub
+  - GEOSITE,telegram,📲 电报消息
+  - GEOIP,telegram,📲 电报消息,no-resolve
+  - GEOSITE,twitter,🐦 推特/X
+  - GEOIP,twitter,🐦 推特/X,no-resolve
+  - GEOSITE,binance,₿ 加密货币
+  - GEOSITE,openai,🤖 AI 服务
+  - GEOSITE,anthropic,🤖 AI 服务
+  - GEOSITE,youtube,🎬 全球视频
+  - RULE-SET,direct,🇨🇳 国内直连
+  - GEOSITE,google,🔍 谷歌服务
+  - GEOIP,google,🔍 谷歌服务,no-resolve
+  - GEOSITE,microsoft,Ⓜ️ 微软服务
+  - GEOSITE,apple,🍏 苹果服务
+  - GEOIP,cn,🇨🇳 国内直连,no-resolve
+  - MATCH,🐟 漏网之鱼

@@ -38,75 +38,43 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
+    # --- 局域网与系统核心 ---
     - "+.lan"
     - "+.local"
     - "+.home.arpa"
-    - "+.mzstatic.com"
-    - "stun.*.*.*"
-    - "stun.*.*"
-    - "+.ntp.org.cn"
-    - "+.openwrt.pool.ntp.org"
-    - "+.time.edu.cn"
-    - "ntp[1-7].aliyun.com"
-    - "time[1-7].aliyun.com"
-    - "time[1-7].apple.com"
-    - "time[1-7].google.com"
-    - pool.ntp.org
-    - ntp.ubuntu.com
-    - music.163.com
-    - "+.music.163.com"
-    - "+.126.net"
-    - "+.y.qq.com"
-    - "+.kuwo.cn"
-    - "+.xiami.com"
-    - "+.music.migu.cn"
+    # --- 微软连通性测试 (必须保留，否则 Windows 显示无网络) ---
     - "+.msftconnecttest.com"
     - "+.msftncsi.com"
     - "+.ipv6.microsoft.com"
+    # --- 游戏与语音 (STUN 需要真实 IP) ---
+    - "stun.*.*.*"
+    - "stun.*.*"
     - "*.*.*.srv.nintendo.net"
     - "*.*.stun.playstation.net"
     - "*.*.xboxlive.com"
     - "xbox.*.*.microsoft.com"
-    - localhost.ptlogin2.qq.com
+    # --- NTP 时间同步 ---
+    - pool.ntp.org
+    - ntp.ubuntu.com
+    - "ntp[1-7].aliyun.com"
+    - "time[1-7].aliyun.com"
+    - "time[1-7].apple.com"
+    - "time[1-7].google.com"
+    # --- 兜底国内域名 ---
     - geosite:cn
   nameserver-policy:
-    geosite:cn:
-      - 223.5.5.5
-      - 119.29.29.29
-      - 114.114.114.114
+    "geosite:cn":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
   nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-    - tls://dns.google#853
-  proxy-server-nameserver:
-    - 8.8.8.8
-    - 1.1.1.1
-    - tls://1.1.1.1
-  fallback:
     - https://1.1.1.1/dns-query
-    - https://1.0.0.1/dns-query
-    - https://dns.google/dns-query
-  fallback-filter:
-    geoip: true
-    ipcidr:
-      - 240.0.0.0/4
-      - 0.0.0.0/32
-      - 127.0.0.1/32
-    domain:
-      - "+.google.com"
-      - "+.facebook.com"
-      - "+.twitter.com"
-      - "+.youtube.com"
-      - "+.xn--ngstr-lra8j.com"
-      - "+.gvt1.com"
-      - "+.ggpht.com"
-      - "+.ytimg.com"
-      - "+.gstatic.com"
-      - "+.googleapis.com"
-      - "+.fonts.googleapis.com"
+    - https://8.8.8.8/dns-query
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
 
 sniffer:
   enable: true

@@ -16,16 +16,24 @@
       {
         "tag": "dns_proxy",
         "address": "https://cloudflare-dns.com/dns-query",
+        "address_resolver": "dns_resolver",
         "detour": "🚀 节点选择"
       },
       {
         "tag": "dns_proxy_google",
         "address": "https://dns.google/dns-query",
+        "address_resolver": "dns_resolver",
         "detour": "🚀 节点选择"
       },
       {
         "tag": "dns_direct",
         "address": "h3://223.5.5.5/dns-query",
+        "address_resolver": "dns_resolver",
+        "detour": "DIRECT"
+      },
+      {
+        "tag": "dns_resolver",
+        "address": "223.5.5.5",
         "detour": "DIRECT"
       },
       {
@@ -104,6 +112,28 @@
     }
   ],
   "outbounds": [
+    {
+      "type": "vless",
+      "tag": "示例节点",
+      "server": "0.0.0.0",
+      "server_port": 443,
+      "uuid": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "tls": {
+        "enabled": true,
+        "server_name": "example.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/?ed=2560",
+        "headers": {
+          "Host": "example.com"
+        }
+      }
+    },
     {
       "type": "selector",
       "tag": "🚀 节点选择",

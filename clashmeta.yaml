@@ -170,6 +170,10 @@ proxy-groups:
     proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
 
 rules:
+  - DOMAIN-SUFFIX,tailscale.com,🛠 自定直连
+  - DOMAIN-SUFFIX,tailscale.io,🛠 自定直连
+  - DOMAIN-KEYWORD,derp,🛠 自定直连
+  - IP-CIDR,100.64.0.0/10,🛠 自定直连,no-resolve
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,private,🏠 私有网络
   - GEOIP,private,🏠 私有网络,no-resolve

@@ -60,6 +60,9 @@ dns:
     - "time[1-7].aliyun.com"
     - "time[1-7].apple.com"
     - "time[1-7].google.com"
+    # --- Tailscale ---
+    - "+.tailscale.com"
+    - "+.tailscale.io"
     # --- 兜底国内域名 ---
     - geosite:cn
   nameserver-policy:
@@ -170,10 +173,12 @@ proxy-groups:
     proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
 
 rules:
-  - DOMAIN-SUFFIX,tailscale.com,🛠 自定直连
-  - DOMAIN-SUFFIX,tailscale.io,🛠 自定直连
-  - DOMAIN-KEYWORD,derp,🛠 自定直连
-  - IP-CIDR,100.64.0.0/10,🛠 自定直连,no-resolve
+  - AND,((DST-PORT,3478),(NETWORK,UDP)),DIRECT
+  - IP-CIDR,208.111.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,tailscale.com,DIRECT
+  - DOMAIN-SUFFIX,tailscale.io,DIRECT
+  - DOMAIN-KEYWORD,derp,DIRECT
   - GEOSITE,category-ads-all,🛑 广告拦截
   - GEOSITE,private,🏠 私有网络
   - GEOIP,private,🏠 私有网络,no-resolve

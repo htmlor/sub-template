@@ -38,46 +38,46 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
-    # --- 局域网与系统核心 ---
-    - "+.lan"
-    - "+.local"
-    - "+.home.arpa"
-    # --- 微软连通性测试 (必须保留，否则 Windows 显示无网络) ---
-    - "+.msftconnecttest.com"
-    - "+.msftncsi.com"
-    - "+.ipv6.microsoft.com"
-    # --- 游戏与语音 (STUN 需要真实 IP) ---
-    - "stun.*.*.*"
-    - "stun.*.*"
-    - "*.*.*.srv.nintendo.net"
-    - "*.*.stun.playstation.net"
-    - "*.*.xboxlive.com"
-    - "xbox.*.*.microsoft.com"
-    # --- NTP 时间同步 ---
-    - pool.ntp.org
-    - ntp.ubuntu.com
-    - "ntp[1-7].aliyun.com"
-    - "time[1-7].aliyun.com"
-    - "time[1-7].apple.com"
-    - "time[1-7].google.com"
-    # --- Tailscale ---
-    - "+.tailscale.com"
-    - "+.tailscale.io"
-    # --- 兜底国内域名 ---
-    - geosite:cn
+  # --- 局域网与系统核心 ---
+  - "+.lan"
+  - "+.local"
+  - "+.home.arpa"
+  # --- 微软连通性测试 (必须保留，否则 Windows 显示无网络) ---
+  - "+.msftconnecttest.com"
+  - "+.msftncsi.com"
+  - "+.ipv6.microsoft.com"
+  # --- 游戏与语音 (STUN 需要真实 IP) ---
+  - "stun.*.*.*"
+  - "stun.*.*"
+  - "*.*.*.srv.nintendo.net"
+  - "*.*.stun.playstation.net"
+  - "*.*.xboxlive.com"
+  - "xbox.*.*.microsoft.com"
+  # --- NTP 时间同步 ---
+  - pool.ntp.org
+  - ntp.ubuntu.com
+  - "ntp[1-7].aliyun.com"
+  - "time[1-7].aliyun.com"
+  - "time[1-7].apple.com"
+  - "time[1-7].google.com"
+  # --- Tailscale ---
+  - "+.tailscale.com"
+  - "+.tailscale.io"
+  # --- 兜底国内域名 ---
+  - geosite:cn
   nameserver-policy:
-    "geosite:cn":
-      - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
-  default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-  nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-  proxy-server-nameserver:
+    geosite:cn:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  nameserver:
+  - https://1.1.1.1/dns-query
+  - https://8.8.8.8/dns-query
+  proxy-server-nameserver:
+  - https://dns.alidns.com/dns-query
+  - https://doh.pub/dns-query
 
 sniffer:
   enable: true
@@ -85,120 +85,120 @@ sniffer:
   sniff:
     QUIC:
       ports:
-        - 443
+      - 443
     TLS:
       ports:
-        - 443
-        - 8443
+      - 443
+      - 8443
     HTTP:
       ports:
-        - 80
-        - 8080-8880
+      - 80
+      - 8080-8880
 
 proxies:
-  - name: "示例节点"
-    type: vless
-    server: 0.0.0.0
-    port: 443
-    uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-    tls: true
-    servername: example.com
-    client-fingerprint: chrome
-    network: ws
-    ws-opts:
-      path: "/?ed=2560"
-      headers:
-        Host: example.com
+- name: "示例节点"
+  type: vless
+  server: 0.0.0.0
+  port: 443
+  uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  tls: true
+  servername: example.com
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: example.com
 
 proxy-groups:
-  - name: "🚀 节点选择"
-    type: select
-    proxies: ["1️⃣ 默认节点", "2️⃣ 第二节点", "⚡ 自动选择", DIRECT]
-  - name: "⚡ 自动选择"
-    type: url-test
-    proxies: ["示例节点"]
-    url: "https://www.gstatic.com/generate_204"
-    interval: 300
-    lazy: false
-  - name: "1️⃣ 默认节点"
-    type: select
-    proxies: ["示例节点"]
-  - name: "2️⃣ 第二节点"
-    type: select
-    proxies: ["示例节点"]
-  - name: "🛑 广告拦截"
-    type: select
-    proxies: [REJECT]
-  - name: "🤖 AI 服务"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🎬 全球视频"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🔍 谷歌服务"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "Ⓜ️ 微软服务"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🍏 苹果服务"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "☁️ Cloudflare"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🐙 GitHub"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "📲 电报消息"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🐦 推特/X"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "₿ 加密货币"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
-  - name: "🏠 私有网络"
-    type: select
-    proxies: [DIRECT]
-  - name: "🇨🇳 国内直连"
-    type: select
-    proxies: [DIRECT]
-  - name: "🛠 自定直连"
-    type: select
-    proxies: [DIRECT, "🚀 节点选择"]
-  - name: "🐟 漏网之鱼"
-    type: select
-    proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🚀 节点选择"
+  type: select
+  proxies: ["1️⃣ 默认节点", "2️⃣ 第二节点", "⚡ 自动选择", DIRECT]
+- name: "⚡ 自动选择"
+  type: url-test
+  proxies: ["示例节点"]
+  url: "https://www.gstatic.com/generate_204"
+  interval: 300
+  lazy: false
+- name: "1️⃣ 默认节点"
+  type: select
+  proxies: ["示例节点"]
+- name: "2️⃣ 第二节点"
+  type: select
+  proxies: ["示例节点"]
+- name: "🛑 广告拦截"
+  type: select
+  proxies: [REJECT]
+- name: "🤖 AI 服务"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🎬 全球视频"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🔍 谷歌服务"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "Ⓜ️ 微软服务"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🍏 苹果服务"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "☁️ Cloudflare"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🐙 GitHub"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "📲 电报消息"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🐦 推特/X"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "₿ 加密货币"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
+- name: "🏠 私有网络"
+  type: select
+  proxies: [DIRECT]
+- name: "🇨🇳 国内直连"
+  type: select
+  proxies: [DIRECT]
+- name: "🛠 自定直连"
+  type: select
+  proxies: [DIRECT, "🚀 节点选择"]
+- name: "🐟 漏网之鱼"
+  type: select
+  proxies: ["🚀 节点选择", "1️⃣ 默认节点", "2️⃣ 第二节点"]
 
 rules:
-  - AND,((DST-PORT,3478),(NETWORK,UDP)),DIRECT
-  - IP-CIDR,208.111.0.0/16,DIRECT,no-resolve
-  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
-  - DOMAIN-SUFFIX,tailscale.com,DIRECT
-  - DOMAIN-SUFFIX,tailscale.io,DIRECT
-  - DOMAIN-KEYWORD,derp,DIRECT
-  - GEOSITE,category-ads-all,🛑 广告拦截
-  - GEOSITE,private,🏠 私有网络
-  - GEOIP,private,🏠 私有网络,no-resolve
-  - DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
-  - DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
-  - DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连
-  - GEOSITE,apple@cn,🇨🇳 国内直连
-  - GEOSITE,microsoft@cn,🇨🇳 国内直连
-  - GEOSITE,steam@cn,🇨🇳 国内直连
-  - GEOSITE,cloudflare,☁️ Cloudflare
-  - GEOSITE,github,🐙 GitHub
-  - GEOSITE,telegram,📲 电报消息
-  - GEOSITE,twitter,🐦 推特/X
-  - GEOSITE,binance,₿ 加密货币
-  - GEOSITE,openai,🤖 AI 服务
-  - GEOSITE,anthropic,🤖 AI 服务
-  - GEOSITE,youtube,🎬 全球视频
-  - GEOSITE,google,🔍 谷歌服务
-  - GEOSITE,microsoft,Ⓜ️ 微软服务
-  - GEOSITE,apple,🍏 苹果服务
-  - GEOSITE,cn,🇨🇳 国内直连
-  - GEOIP,cn,🇨🇳 国内直连,no-resolve
-  - MATCH,🐟 漏网之鱼
+- AND,((DST-PORT,3478),(NETWORK,UDP)),DIRECT
+- IP-CIDR,208.111.0.0/16,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- DOMAIN-SUFFIX,tailscale.com,DIRECT
+- DOMAIN-SUFFIX,tailscale.io,DIRECT
+- DOMAIN-KEYWORD,derp,DIRECT
+- GEOSITE,category-ads-all,🛑 广告拦截
+- GEOSITE,private,🏠 私有网络
+- GEOIP,private,🏠 私有网络,no-resolve
+- DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
+- DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
+- DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连
+- GEOSITE,apple@cn,🇨🇳 国内直连
+- GEOSITE,microsoft@cn,🇨🇳 国内直连
+- GEOSITE,steam@cn,🇨🇳 国内直连
+- GEOSITE,cloudflare,☁️ Cloudflare
+- GEOSITE,github,🐙 GitHub
+- GEOSITE,telegram,📲 电报消息
+- GEOSITE,twitter,🐦 推特/X
+- GEOSITE,binance,₿ 加密货币
+- GEOSITE,openai,🤖 AI 服务
+- GEOSITE,anthropic,🤖 AI 服务
+- GEOSITE,youtube,🎬 全球视频
+- GEOSITE,google,🔍 谷歌服务
+- GEOSITE,microsoft,Ⓜ️ 微软服务
+- GEOSITE,apple,🍏 苹果服务
+- GEOSITE,cn,🇨🇳 国内直连
+- GEOIP,cn,🇨🇳 国内直连,no-resolve
+- MATCH,🐟 漏网之鱼

@@ -182,6 +182,7 @@ rules:
 - GEOSITE,category-ads-all,🛑 广告拦截
 - GEOSITE,private,🏠 私有网络
 - GEOIP,private,🏠 私有网络,no-resolve
+- DOMAIN-SUFFIX,lovart.ai,🤖 AI 服务
 - DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
 - DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
 - DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连

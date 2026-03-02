@@ -282,6 +282,10 @@
         "outbound": "🏠 私有网络" 
       },
       { 
+        "domain_suffix": ["lovart.ai"], 
+        "outbound": "🤖 AI 服务" 
+      },
+      { 
         "domain_suffix": ["iyf.tv"], 
         "outbound": "🎬 全球视频" 
       },

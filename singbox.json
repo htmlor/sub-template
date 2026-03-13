@@ -290,7 +290,7 @@
         "outbound": "🎬 全球视频" 
       },
       { 
-        "domain_suffix": ["spaceship.com", "spaceship-cdn.com"], 
+        "domain_suffix": ["spaceship.com", "spaceship-cdn.com", "vocalremover.org"], 
         "outbound": "🛠 自定直连" 
       },
       { 

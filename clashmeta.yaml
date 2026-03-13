@@ -186,6 +186,7 @@ rules:
 - DOMAIN-SUFFIX,iyf.tv,🎬 全球视频
 - DOMAIN-SUFFIX,spaceship.com,🛠 自定直连
 - DOMAIN-SUFFIX,spaceship-cdn.com,🛠 自定直连
+- DOMAIN-SUFFIX,vocalremover.org,🛠 自定直连
 - GEOSITE,apple@cn,🇨🇳 国内直连
 - GEOSITE,microsoft@cn,🇨🇳 国内直连
 - GEOSITE,steam@cn,🇨🇳 国内直连

@@ -18,10 +18,10 @@ geo-auto-update: true
 geodata-loader: memconservative
 geo-update-interval: 24
 geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-Country.mmdb"
-  asn: "https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
+  geoip: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-Country.mmdb"
+  asn: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 keep-alive-idle: 600
 keep-alive-interval: 15
 
@@ -63,6 +63,10 @@ dns:
   # --- Tailscale ---
   - "+.tailscale.com"
   - "+.tailscale.io"
+  # --- Youtube ---
+  - "*.googlevideo.com"
+  - "*.youtube.com"
+  - "*.ytimg.com"
   # --- 兜底国内域名 ---
   - geosite:cn
   nameserver-policy:
@@ -78,6 +82,7 @@ dns:
   proxy-server-nameserver:
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
+  enhanced-mode: fake-ip
 
 sniffer:
   enable: true
@@ -94,6 +99,17 @@ sniffer:
       ports:
       - 80
       - 8080-8880
+      override-destination: true
+  force-domain:
+  - "+.netflix.com"
+  - "+.nflxvideo.net"
+  - "+.amazonaws.com"
+  - "+.media.dssott.com"
+  skip-domain:
+  - "+.oray.com"
+  - "+.sunlogin.net"
+  - "+.push.apple.com"
+  parse-pure-ip: true
 
 proxies:
 - name: "示例节点"

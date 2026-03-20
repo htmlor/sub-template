@@ -11,7 +11,6 @@ mode: rule
 log-level: warning
 unified-delay: true
 tcp-concurrent: true
-global-client-fingerprint: chrome
 find-process-mode: 'off'
 geodata-mode: true
 geo-auto-update: true
@@ -63,10 +62,6 @@ dns:
   # --- Tailscale ---
   - "+.tailscale.com"
   - "+.tailscale.io"
-  # --- Youtube ---
-  - "*.googlevideo.com"
-  - "*.youtube.com"
-  - "*.ytimg.com"
   # --- 兜底国内域名 ---
   - geosite:cn
   nameserver-policy:

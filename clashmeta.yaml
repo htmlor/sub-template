@@ -82,7 +82,6 @@ dns:
   proxy-server-nameserver:
   - https://dns.alidns.com/dns-query
   - https://doh.pub/dns-query
-  enhanced-mode: fake-ip
 
 sniffer:
   enable: true
